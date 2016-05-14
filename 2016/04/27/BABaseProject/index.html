@@ -3,17 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>博爱 的 博客</title>
+  <title>iOS开发项目框架 --&gt; BABaseProject | 博爱 的 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="博爱 的 博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="一个主要使用 MVVM 设计模式 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！
+1、性能问题 和 MVVM模式优点####1.1、开发中遇到的 性能问题：
+
+1.1.1、cell的高度应该提前计算出来
+1.1.2、cell的高度必须要先计算出每个子控件的frame，才能确定
+1.1.3、如果在cell的set方法计算子控件的位置，会比较耗性能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发项目框架 --> BABaseProject">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/BABaseProject/index.html">
 <meta property="og:site_name" content="博爱 的 博客">
-<meta property="og:description">
+<meta property="og:description" content="一个主要使用 MVVM 设计模式 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！
+1、性能问题 和 MVVM模式优点####1.1、开发中遇到的 性能问题：
+
+1.1.1、cell的高度应该提前计算出来
+1.1.2、cell的高度必须要先计算出每个子控件的frame，才能确定
+1.1.3、如果在cell的set方法计算子控件的位置，会比较耗性能">
+<meta property="og:updated_time" content="2016-05-14T05:48:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博爱 的 博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="iOS开发项目框架 --> BABaseProject">
+<meta name="twitter:description" content="一个主要使用 MVVM 设计模式 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！
+1、性能问题 和 MVVM模式优点####1.1、开发中遇到的 性能问题：
+
+1.1.1、cell的高度应该提前计算出来
+1.1.2、cell的高度必须要先计算出每个子控件的frame，才能确定
+1.1.3、如果在cell的set方法计算子控件的位置，会比较耗性能">
   
   
     <link rel="icon" href="/favicon.png">
@@ -30,13 +46,8 @@
   
   <link rel="stylesheet" href="/css/style.css">
   
-      <style> .article { opacity: 0;} </style>
-  
   <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-    
-    
   
   
       <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
@@ -47,8 +58,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -233,9 +244,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-BABaseProject" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-BABaseProject" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/04/27/BABaseProject/" class="article-date">
@@ -251,12 +260,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/27/BABaseProject/">iOS开发项目框架 --&gt; BABaseProject</a>
+    <h1 class="article-title" itemprop="name">
+      iOS开发项目框架 --&gt; BABaseProject
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -341,19 +357,94 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/04/27/BABaseProject/">iOS开发项目框架 --&gt; BABaseProject</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">孙博岩</a></p>
+        <p><span>发布时间:</span>2016-04-27, 14:41:15</p>
+        <p><span>最后更新:</span>2016-05-14, 13:48:31</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/27/BABaseProject/" title="iOS开发项目框架 --&gt; BABaseProject">http://yoursite.com/2016/04/27/BABaseProject/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/04/27/BABaseProject/　　作者: 孙博岩" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、性能问题-和-MVVM模式优点"><span class="toc-number">1.</span> <span class="toc-text">1、性能问题 和 MVVM模式优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、推荐"><span class="toc-number">2.</span> <span class="toc-text">2、推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-完全实现-『UIButton』-的自定义的类库"><span class="toc-number">2.0.1.</span> <span class="toc-text">2.1 完全实现 『UIButton』 的自定义的类库 </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法"><span class="toc-number">2.0.2.</span> <span class="toc-text">对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-简书专题"><span class="toc-number">2.0.3.</span> <span class="toc-text">2.2 简书专题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、项目简介-和-使用指南"><span class="toc-number">3.</span> <span class="toc-text">3、项目简介 和 使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-使用指南"><span class="toc-number">3.0.1.</span> <span class="toc-text">3.2 使用指南 </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、更新记录"><span class="toc-number">4.</span> <span class="toc-text">4、更新记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-10-版本：2-0"><span class="toc-number">4.0.1.</span> <span class="toc-text">2016-05-10  版本：2.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-10-版本：1-0"><span class="toc-number">4.0.2.</span> <span class="toc-text">2016-05-10  版本：1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-09-版本：1-0"><span class="toc-number">4.0.3.</span> <span class="toc-text">2016-05-09  版本：1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-07-版本：1-0"><span class="toc-number">4.0.4.</span> <span class="toc-text">2016-05-07  版本：1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-06-版本：1-0"><span class="toc-number">4.0.5.</span> <span class="toc-text">2016-05-06  版本：1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-05-版本：1-0"><span class="toc-number">4.0.6.</span> <span class="toc-text">2016-05-05  版本：1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2016-05-04-版本：1-0"><span class="toc-number">4.0.7.</span> <span class="toc-text">2016-05-04  版本：1.0</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、系统要求"><span class="toc-number">5.</span> <span class="toc-text">5、系统要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、感谢"><span class="toc-number">6.</span> <span class="toc-text">6、感谢</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"iOS开发项目框架 --> BABaseProject　| 博爱 的 博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
 
 
 
@@ -361,9 +452,51 @@
 
 
 
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/04/27/BABaseProject/" data-title="iOS开发项目框架 --&gt; BABaseProject" data-url="http://yoursite.com/2016/04/27/BABaseProject/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"http://boaihome.duoshuo.com"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/27/BABaseProject/">iOS开发项目框架 --> BABaseProject</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
