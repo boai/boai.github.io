@@ -235,81 +235,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-iOS-Keyboard处理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/27/iOS-Keyboard处理/" class="article-date">
-      <time datetime="2016-04-27T06:41:15.000Z" itemprop="datePublished">2016-04-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/27/iOS-Keyboard处理/">iOS开发第三方键盘处理的那些事儿</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿没唠唠第三方键盘处理的那些坑！<a href="https://github.com/boai/BAKeyboardDemo" target="_blank" rel="external">『BAKeyboardDemo』</a> ！</p>
-<h2 id="1、聊天评论框的封装"><a href="#1、聊天评论框的封装" class="headerlink" title="1、聊天评论框的封装"></a>1、聊天评论框的封装</h2><p>先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。<br>但是本来用的<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>，开源键盘处理框架，可是在同一个界面有多个评论框就出现问题了。</p>
-<h2 id="2、先看看『IQKeyboardManager』的使用吧："><a href="#2、先看看『IQKeyboardManager』的使用吧：" class="headerlink" title="2、先看看『IQKeyboardManager』的使用吧："></a>2、先看看<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>的使用吧：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">AppDelegate 中添加这段代码，就可以全局不用管键盘的弹起收回了！</span><br><span class="line"></span><br><span class="line">#pragma mark -  键盘处理</span><br><span class="line">- (void)completionHandleIQKeyboard</span><br><span class="line">&#123;</span><br><span class="line">    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];</span><br><span class="line">    manager.enable = YES;</span><br><span class="line">    manager.shouldResignOnTouchOutside = YES;</span><br><span class="line">    manager.shouldToolbarUsesTextFieldTintColor = YES;</span><br><span class="line">    manager.enableAutoToolbar = YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3、具体解决办法"><a href="#3、具体解决办法" class="headerlink" title="3、具体解决办法"></a>3、具体解决办法</h2><p>但是我项目中得复杂情况就不行了，键盘弹起异常，收回也异常，尤其是用了聊天室这种view，处理的更麻烦，不要急，看看博爱这些年踩过的坑吧：<br>先看看键盘处理事件吧：</p>
-<ul>
-<li><p>1、首先注册通知：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)registNotification</span><br><span class="line">&#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- 2、再把后路想好：移除通知</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>(void)removeNotification<br>{<br>  [[NSNotificationCenter defaultCenter] removeObserver:self];<br>}</p>
-</li>
-<li><p>3、通知事件处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">/*! 键盘显示要做什么 */</span><br><span class="line">- (void)keyboardWasShown:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">    NSDictionary *info                                  = [notification userInfo];</span><br><span class="line"></span><br><span class="line">    double duration                                     = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">    CGFloat curkeyBoardHeight                           = [[info objectForKey:@&quot;UIKeyboardBoundsUserInfoKey&quot;] CGRectValue].size.height;</span><br><span class="line">    CGRect begin                                        = [[info objectForKey:@&quot;UIKeyboardFrameBeginUserInfoKey&quot;] CGRectValue];</span><br><span class="line">    CGRect end                                          = [[info objectForKey:@&quot;UIKeyboardFrameEndUserInfoKey&quot;] CGRectValue];</span><br><span class="line"></span><br><span class="line">    CGFloat keyBoardHeight;</span><br><span class="line"></span><br><span class="line">    /*! 第三方键盘回调三次问题，监听仅执行最后一次 */</span><br><span class="line">    if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))</span><br><span class="line">    &#123;</span><br><span class="line">        keyBoardHeight                                  = curkeyBoardHeight;</span><br><span class="line">        [UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">            CGRect viewFrame                            = [self getCurrentViewController].view.frame;</span><br><span class="line">            viewFrame.origin.y -= keyBoardHeight;</span><br><span class="line">            [self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)keyboardWasHidden:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">    NSDictionary *info = [notification userInfo];</span><br><span class="line">    double duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">    [UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">        CGRect viewFrame = [self getCurrentViewController].view.frame;</span><br><span class="line">        viewFrame.origin.y = 0;</span><br><span class="line">        [self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*!</span><br><span class="line">*  获取当前View的VC</span><br><span class="line">*</span><br><span class="line">*  @return 获取当前View的VC</span><br><span class="line">*/</span><br><span class="line">- (UIViewController *)getCurrentViewController</span><br><span class="line">&#123;</span><br><span class="line">    for (UIView *view = self; view; view = view.superview)</span><br><span class="line">    &#123;</span><br><span class="line">    UIResponder *nextResponder = [view nextResponder];</span><br><span class="line">    if ([nextResponder isKindOfClass:[UIViewController class]])</span><br><span class="line">    &#123;</span><br><span class="line">    return (UIViewController *)nextResponder;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">具体情况是这样的，在测试过程中，其他界面的评论框都没问题，就直播这个VC有问题，就一步步往下找，后来发现：iOS的第三方键盘会在【- (void)keyboardWasShown:(NSNotification *)notification】这个方法中来回调用多次，不止三次好像，然后就想到一个办法，</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>/<em>! 第三方键盘回调三次问题，监听仅执行最后一次 </em>/<br>if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))<br>{<br>    keyBoardHeight                                  = curkeyBoardHeight;<br>    [UIView animateWithDuration:duration animations:^{</p>
-<pre><code>    CGRect viewFrame                            = [self getCurrentViewController].view.frame;
-    viewFrame.origin.y -= keyBoardHeight;
-    [self getCurrentViewController].view.frame = viewFrame;
-}];
-</code></pre><p>}</p>
-<p>在这里处理这个键盘弹起事件中第一次获取键盘的高度，然后就直接把上面的view给弹上去，这样就避免了第三方键盘会来回调用多次方法，造成键盘弹起异常的问题就迎刃而解了！</p>
-<p>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-BABaseProject" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -410,6 +335,77 @@
 </ul>
 <h2 id="5、系统要求"><a href="#5、系统要求" class="headerlink" title="5、系统要求"></a>5、系统要求</h2><p>该项目最低支持 iOS 7.0 和 Xcode 7.0。（部分动画效果仅支持iOS 8.0）使用时请仔细查看！</p>
 <h2 id="6、感谢"><a href="#6、感谢" class="headerlink" title="6、感谢"></a>6、感谢</h2><p>项目中集成了很多网络上民间大神的多年积累的优秀成果，结合自己项目开发中遇到的重难点，和很多开发者向我提起的疑难问题，在下综合整理并优化了下，最终成就了<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a> <br><br>在此，博爱再次感谢各位大神的源码贡献！ <br><br>希望开源项目<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>能够为众多iOS开发新手提供最简单、最快捷的开源项目！ <br><br>感谢大家的支持！</p>
+<p>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-iOS-Keyboard处理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/27/iOS-Keyboard处理/" class="article-date">
+      <time datetime="2016-04-27T06:41:15.000Z" itemprop="datePublished">2016-04-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/27/iOS-Keyboard处理/">iOS开发第三方键盘处理的那些事儿</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿没唠唠第三方键盘处理的那些坑！详情请看：<a href="https://github.com/boai/BAKeyboardDemo" target="_blank" rel="external">『BAKeyboardDemo』</a> ！</p>
+<h2 id="1、聊天评论框的封装"><a href="#1、聊天评论框的封装" class="headerlink" title="1、聊天评论框的封装"></a>1、聊天评论框的封装</h2><p>先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。<br>但是本来用的<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>，开源键盘处理框架，可是在同一个界面有多个评论框就出现问题了。</p>
+<h2 id="2、先看看『IQKeyboardManager』的使用吧："><a href="#2、先看看『IQKeyboardManager』的使用吧：" class="headerlink" title="2、先看看『IQKeyboardManager』的使用吧："></a>2、先看看<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>的使用吧：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">AppDelegate 中添加这段代码，就可以全局不用管键盘的弹起收回了！</span><br><span class="line"></span><br><span class="line">#pragma mark -  键盘处理</span><br><span class="line">- (void)completionHandleIQKeyboard</span><br><span class="line">&#123;</span><br><span class="line">    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];</span><br><span class="line">    manager.enable = YES;</span><br><span class="line">    manager.shouldResignOnTouchOutside = YES;</span><br><span class="line">    manager.shouldToolbarUsesTextFieldTintColor = YES;</span><br><span class="line">    manager.enableAutoToolbar = YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、具体解决办法"><a href="#3、具体解决办法" class="headerlink" title="3、具体解决办法"></a>3、具体解决办法</h2><p>但是我项目中得复杂情况就不行了，键盘弹起异常，收回也异常，尤其是用了聊天室这种view，处理的更麻烦，不要急，看看博爱这些年踩过的坑吧：<br>先看看键盘处理事件吧：</p>
+<ul>
+<li><p>1、首先注册通知：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)registNotification</span><br><span class="line">&#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、再把后路想好：移除通知</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)removeNotification</span><br><span class="line">&#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] removeObserver:self];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3、通知事件处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">/*! 键盘显示要做什么 */</span><br><span class="line">- (void)keyboardWasShown:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">    NSDictionary *info                                  = [notification userInfo];</span><br><span class="line"></span><br><span class="line">    double duration                                     = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">    CGFloat curkeyBoardHeight                           = [[info objectForKey:@&quot;UIKeyboardBoundsUserInfoKey&quot;] CGRectValue].size.height;</span><br><span class="line">    CGRect begin                                        = [[info objectForKey:@&quot;UIKeyboardFrameBeginUserInfoKey&quot;] CGRectValue];</span><br><span class="line">    CGRect end                                          = [[info objectForKey:@&quot;UIKeyboardFrameEndUserInfoKey&quot;] CGRectValue];</span><br><span class="line"></span><br><span class="line">    CGFloat keyBoardHeight;</span><br><span class="line"></span><br><span class="line">    /*! 第三方键盘回调三次问题，监听仅执行最后一次 */</span><br><span class="line">    if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))</span><br><span class="line">    &#123;</span><br><span class="line">        keyBoardHeight                                  = curkeyBoardHeight;</span><br><span class="line">        [UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">            CGRect viewFrame                            = [self getCurrentViewController].view.frame;</span><br><span class="line">            viewFrame.origin.y -= keyBoardHeight;</span><br><span class="line">            [self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)keyboardWasHidden:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">    NSDictionary *info = [notification userInfo];</span><br><span class="line">    double duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">    [UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">        CGRect viewFrame = [self getCurrentViewController].view.frame;</span><br><span class="line">        viewFrame.origin.y = 0;</span><br><span class="line">        [self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*!</span><br><span class="line">*  获取当前View的VC</span><br><span class="line">*</span><br><span class="line">*  @return 获取当前View的VC</span><br><span class="line">*/</span><br><span class="line">- (UIViewController *)getCurrentViewController</span><br><span class="line">&#123;</span><br><span class="line">    for (UIView *view = self; view; view = view.superview)</span><br><span class="line">    &#123;</span><br><span class="line">    UIResponder *nextResponder = [view nextResponder];</span><br><span class="line">    if ([nextResponder isKindOfClass:[UIViewController class]])</span><br><span class="line">    &#123;</span><br><span class="line">    return (UIViewController *)nextResponder;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>具体情况是这样的，在测试过程中，其他界面的评论框都没问题，就直播这个VC有问题，就一步步往下找，后来发现：iOS的第三方键盘会在【- (void)keyboardWasShown:(NSNotification *)notification】这个方法中来回调用多次，不止三次好像，然后就想到一个办法，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*! 第三方键盘回调三次问题，监听仅执行最后一次 */</span><br><span class="line">if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))</span><br><span class="line">&#123;</span><br><span class="line">    keyBoardHeight                                  = curkeyBoardHeight;</span><br><span class="line">    [UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">        CGRect viewFrame                            = [self getCurrentViewController].view.frame;</span><br><span class="line">        viewFrame.origin.y -= keyBoardHeight;</span><br><span class="line">        [self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里处理这个键盘弹起事件中第一次获取键盘的高度，然后就直接把上面的view给弹上去，这样就避免了第三方键盘会来回调用多次方法，造成键盘弹起异常的问题就迎刃而解了！</p>
 <p>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
 
       
