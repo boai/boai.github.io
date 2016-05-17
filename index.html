@@ -391,6 +391,17 @@
           
         <p>最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿没唠唠第三方键盘处理的那些坑！稍后上demo！</p>
 <p>稍后再写，改bug先！</p>
+<h2 id="1、聊天评论框的封装"><a href="#1、聊天评论框的封装" class="headerlink" title="1、聊天评论框的封装"></a>1、聊天评论框的封装</h2><p>先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。<br>但是本来用的<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>，开源键盘处理框架，可是在同一个界面有多个评论框就出现问题了。</p>
+<p>先看看<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>的使用吧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">AppDelegate 中添加这段代码，就可以全局不用管键盘的弹起收回了！</span><br><span class="line"></span><br><span class="line">#pragma mark -  键盘</span><br><span class="line">- (void)completionHandleIQKeyboard</span><br><span class="line">&#123;</span><br><span class="line">    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];</span><br><span class="line">    manager.enable = YES;</span><br><span class="line">    manager.shouldResignOnTouchOutside = YES;</span><br><span class="line">    manager.shouldToolbarUsesTextFieldTintColor = YES;</span><br><span class="line">    manager.enableAutoToolbar = YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是我项目中得复杂情况就不行了，键盘弹起异常，收回也异常，尤其是用了聊天室这种view，处理的更麻烦，不要急，看看博爱这些年踩过的坑吧：<br>先看看键盘处理事件吧：</p>
+<ul>
+<li><p>1、首先注册通知：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)registNotification</span><br><span class="line">&#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、再把后路想好：移除通知</p>
+</li>
+<li>(void)removeNotification<br>{<br>  [[NSNotificationCenter defaultCenter] removeObserver:self];<br>}</li>
+</ul>
 <p>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
 
       
