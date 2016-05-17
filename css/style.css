@@ -775,55 +775,55 @@ a {
   transform: scale(1.1);
 }
 #header .header-nav .social .新浪微博 {
-  background: url("/img/新浪微博.png") center no-repeat #ecc260;
+  background: url("http://boai.github.io/archives//img/新浪微博.png") center no-repeat #ecc260;
   -webkit-background-size: 80%;
   -moz-background-size: 80%;
   background-size: 80%;
 }
 #header .header-nav .social .知乎 {
-  background: url("/img/知乎.png") center no-repeat #0078d8;
+  background: url("http://boai.github.io/archives//img/知乎.png") center no-repeat #0078d8;
   -webkit-background-size: 90%;
   -moz-background-size: 90%;
   background-size: 90%;
 }
 #header .header-nav .social .豆瓣 {
-  background: url("/img/豆瓣.png") center no-repeat #06c611;
+  background: url("http://boai.github.io/archives//img/豆瓣.png") center no-repeat #06c611;
   -webkit-background-size: 88%;
   -moz-background-size: 88%;
   background-size: 88%;
 }
 #header .header-nav .social .V2EX {
-  background: url("/img/V2EX.png") center no-repeat #e4cdb4;
+  background: url("http://boai.github.io/archives//img/V2EX.png") center no-repeat #e4cdb4;
   -webkit-background-size: 78%;
   -moz-background-size: 78%;
   background-size: 78%;
 }
 #header .header-nav .social .TiddlyWiki {
-  background: url("/img/TiddlyWiki.png") center no-repeat #6283dd;
+  background: url("http://boai.github.io/archives//img/TiddlyWiki.png") center no-repeat #6283dd;
   -webkit-background-size: 82%;
   -moz-background-size: 82%;
   background-size: 82%;
 }
 #header .header-nav .social .简书 {
-  background: url("/img/简书.png") center no-repeat #e99888;
+  background: url("http://boai.github.io/archives//img/简书.png") center no-repeat #e99888;
   -webkit-background-size: 82%;
   -moz-background-size: 82%;
   background-size: 82%;
 }
 #header .header-nav .social .SegmentFault {
-  background: url("/img/SegmentFault.png") center no-repeat #018f56;
+  background: url("http://boai.github.io/archives//img/SegmentFault.png") center no-repeat #018f56;
   -webkit-background-size: 80%;
   -moz-background-size: 80%;
   background-size: 80%;
 }
 #header .header-nav .social .网易云音乐 {
-  background: url("/img/网易云音乐.png") center no-repeat #e51e02;
+  background: url("http://boai.github.io/archives//img/网易云音乐.png") center no-repeat #e51e02;
   -webkit-background-size: 80%;
   -moz-background-size: 80%;
   background-size: 80%;
 }
 #header .header-nav .social .虾米音乐 {
-  background: url("/img/虾米音乐.png") center no-repeat #ff6a00;
+  background: url("http://boai.github.io/archives//img/虾米音乐.png") center no-repeat #ff6a00;
   -webkit-background-size: 82%;
   -moz-background-size: 82%;
   background-size: 82%;
@@ -1051,11 +1051,6 @@ color
 }
 body .ui-tooltip {
   border: 1px solid #fff;
-}
-.pace .pace-progress {
-  background: #77b6ff;
-  -webkit-box-shadow: 0 0 10px rgba(119,182,255,0.7);
-  box-shadow: 0 0 10px rgba(119,182,255,0.7);
 }
 .social,
 .share,
@@ -2893,4 +2888,33 @@ pre .javascript .function {
   .youyan {
     padding: 20px 10px;
   }
+}
+body {
+  background: #808080;
+}
+.article-header {
+  border-left: 5px solid #666;
+}
+.article-more-link a {
+  background: #4d4d4d;
+  font-size: 0.8em;
+}
+.tagcloud a.color3 {
+  background: #7b5d5f;
+}
+.tagcloud a.color3:before {
+  border-right-color: #7b5d5f;
+}
+.tagcloud a.color5 {
+  background: #ba8f6c;
+}
+.tagcloud a.color5:before {
+  border-right-color: #ba8f6c;
+}
+.tagcloud a.color5:hover {
+  background-color: #9c9;
+  border-color: #9c9;
+}
+.tagcloud a.color5:hover::before {
+  border-right-color: #9c9;
 }
