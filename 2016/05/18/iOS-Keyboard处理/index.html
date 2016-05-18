@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>博爱 的 博客</title>
+  <title>iOS开发第三方键盘处理的那些事儿 | 博爱 的 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="博爱 的 博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发第三方键盘处理的那些事儿">
+<meta property="og:url" content="http://yoursite.com/2016/05/18/iOS-Keyboard处理/index.html">
 <meta property="og:site_name" content="博爱 的 博客">
-<meta property="og:description">
+<meta property="og:description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
+<meta property="og:updated_time" content="2016-05-18T01:15:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博爱 的 博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="iOS开发第三方键盘处理的那些事儿">
+<meta name="twitter:description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
   
   
     <link rel="icon" href="http://boai.github.io/archives//favicon.png">
@@ -30,13 +34,8 @@
   
   <link rel="stylesheet" href="/css/style.css">
   
-      <style> .article { opacity: 0;} </style>
-  
   <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="apple-touch-icon" href="http://boai.github.io/archives//apple-touch-icon.png">
-  
-    
-    
   
   
       <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
@@ -47,8 +46,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -233,9 +232,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-iOS-Keyboard处理" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS-Keyboard处理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/05/18/iOS-Keyboard处理/" class="article-date">
@@ -251,12 +248,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/18/iOS-Keyboard处理/">iOS开发第三方键盘处理的那些事儿</a>
+    <h1 class="article-title" itemprop="name">
+      iOS开发第三方键盘处理的那些事儿
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -284,146 +288,105 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-BABaseProject" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/27/BABaseProject/" class="article-date">
-      <time datetime="2016-04-27T06:41:15.000Z" itemprop="datePublished">2016-04-27</time>
-</a>
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/18/iOS-Keyboard处理/">iOS开发第三方键盘处理的那些事儿</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">孙博岩</a></p>
+        <p><span>发布时间:</span>2016-05-18, 09:15:48</p>
+        <p><span>最后更新:</span>2016-05-18, 09:15:51</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/18/iOS-Keyboard处理/" title="iOS开发第三方键盘处理的那些事儿">http://yoursite.com/2016/05/18/iOS-Keyboard处理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/18/iOS-Keyboard处理/　　作者: 孙博岩" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+
+
+
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/27/BABaseProject/">iOS开发项目框架 --&gt; BABaseProject</a>
-    </h1>
-  
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/04/27/BABaseProject/">
+                    iOS开发项目框架 --&gt; BABaseProject
+                </a>
+            </div>
+        
+    </nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>一个主要使用 MVVM 设计模式 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！</p>
-<h2 id="1、性能问题-和-MVVM模式优点"><a href="#1、性能问题-和-MVVM模式优点" class="headerlink" title="1、性能问题 和 MVVM模式优点"></a>1、性能问题 和 MVVM模式优点</h2><h4 id="1-1、开发中遇到的-性能问题："><a href="#1-1、开发中遇到的-性能问题：" class="headerlink" title="1.1、开发中遇到的 性能问题： "></a>1.1、开发中遇到的 性能问题： <br></h4><ul>
-<li>1.1.1、cell的高度应该提前计算出来</li>
-<li>1.1.2、cell的高度必须要先计算出每个子控件的frame，才能确定</li>
-<li>1.1.3、如果在cell的set方法计算子控件的位置，会比较耗性能</li>
-</ul>
-<h4 id="1-2、解决方法：MVVM思想"><a href="#1-2、解决方法：MVVM思想" class="headerlink" title="1.2、解决方法：MVVM思想 "></a>1.2、解决方法：MVVM思想 <br></h4><p>M:模型 <br><br>V:视图 <br><br>VM:视图模型（模型包装视图模型，模型+模型对应视图的frame）</p>
-<h4 id="1-3、MVVM模式的-优点"><a href="#1-3、MVVM模式的-优点" class="headerlink" title="1.3、MVVM模式的 优点 "></a>1.3、MVVM模式的 优点 <br></h4><p>MVVM模式和MVC模式一样，主要目的是分离视图（View）和模型（Model），有几大优点</p>
-<ul>
-<li>1.3.1、低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li>
-<li>1.3.2、可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li>
-<li>1.3.3、独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。</li>
-<li>1.3.4、可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li>
-</ul>
-<h2 id="2、推荐"><a href="#2、推荐" class="headerlink" title="2、推荐"></a>2、推荐</h2><h4 id="2-1-完全实现-『UIButton』-的自定义的类库"><a href="#2-1-完全实现-『UIButton』-的自定义的类库" class="headerlink" title="2.1 完全实现 『UIButton』 的自定义的类库 "></a>2.1 完全实现 <a href="https://github.com/boai/BAButton" target="_blank" rel="external">『UIButton』</a> 的自定义的类库 <br></h4><p><strong>pod 导入：   pod ‘BAButton’, ‘~&gt; 1.0.1’</strong> <br></p>
-<p>如果发现pod search BAButton 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了 <br><br>具体步骤：</p>
-<ul>
-<li>pod setup : 初始化</li>
-<li>pod repo update : 更新仓库</li>
-<li>pod search BAButton</li>
-</ul>
-<h4 id="对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法"><a href="#对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法" class="headerlink" title="对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法"></a><a href="http://www.cnblogs.com/boai/p/4977976.html" target="_blank" rel="external">对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法</a></h4><h4 id="2-2-简书专题"><a href="#2-2-简书专题" class="headerlink" title="2.2 简书专题"></a>2.2 简书专题</h4><p><strong>简书专题链接：<a href="http://www.jianshu.com/collections/250078/submissions" target="_blank" rel="external">http://www.jianshu.com/collections/250078/submissions</a></strong> <br></p>
-<h2 id="3、项目简介-和-使用指南"><a href="#3、项目简介-和-使用指南" class="headerlink" title="3、项目简介 和 使用指南"></a>3、项目简介 和 使用指南</h2><h4 id="3-1、项目简介"><a href="#3-1、项目简介" class="headerlink" title="3.1、项目简介 "></a>3.1、项目简介 <br></h4><p><strong>主要使用 MVVM 和 MVC 设计模式，共分为三大类：</strong> <br></p>
-<p><strong>3.1.1、Main</strong> <br><br>主要功能：两种tabbarVC，可以自由选择，一种是完全自定义tabbarVC，一种是DVTabBarController <br></p>
-<p><strong>3.1.2、BAMainCode</strong> <br></p>
-<ul>
-<li>3.1.2.1、BACode    【主要代码】   如：Home(首页)、Message(消息)、Discover(发现)、Profile(我) <br></li>
-<li>3.1.2.2、BABaseData【基类】      如：BABaseVC、BABaseView、BABaseModel <br></li>
-<li>3.1.2.3、BALib     【三方库】    如：不能用pod更新的三方库可以放在这里 <br></li>
-<li>3.1.2.4、BATools   【工具类】    如：BACategory(分类)、BADataBase(数据库)、BAMacros(宏)、BANetManager(网络类)、BATool(工具类) <br></li>
-<li>3.1.2.5、Resources 【资源】      如：字体、Plist、图片 <br></li>
-<li>3.1.2.6、Other     【其他代码】   如： <br></li>
-<li>3.1.2.7、BACustom  【其他自定义】 如：暂时不知道放在哪里的自定义文件可放在这里 <br></li>
-</ul>
-<p><strong>3.1.3、Supporting Files</strong> <br></p>
-<ul>
-<li>3.1.3.1这里暂时放置系统的文件，如：AppDelegate、Main.storyboard、Assets.xcassets、Assets.xcassets、main.m <br></li>
-</ul>
-<h4 id="3-2-使用指南"><a href="#3-2-使用指南" class="headerlink" title="3.2 使用指南 "></a>3.2 使用指南 <br></h4><p>使用的时候删除每个VC里面的DemoVC文件夹即可！<br><br>DemoVC文件夹：是专门展示各级样例用法的文件夹！</p>
-<h2 id="4、更新记录"><a href="#4、更新记录" class="headerlink" title="4、更新记录"></a>4、更新记录</h2><h4 id="2016-05-10-版本：2-0"><a href="#2016-05-10-版本：2-0" class="headerlink" title="2016-05-10  版本：2.0"></a>2016-05-10  版本：2.0</h4><ul>
-<li>4.2.01、新增网易新闻的滑动SegmentControl，基于<a href="https://github.com/HeshamMegid/HMSegmentedControl" target="_blank" rel="external">『HMSegmentedControl』</a>的完美二次封装<a href="https://github.com/boai/BASegmentControl" target="_blank" rel="external">『BASegmentControl』</a>，可随时取用！</li>
-</ul>
-<h4 id="2016-05-10-版本：1-0"><a href="#2016-05-10-版本：1-0" class="headerlink" title="2016-05-10  版本：1.0"></a>2016-05-10  版本：1.0</h4><ul>
-<li>4.1.17、新增最贴心的正则表达式封装：车型和车牌号验证、昵称、姓名验证、使用常用的两种正则判断方法！</li>
-<li>4.1.16、优化DemoVC5，新增一段文字关键字筛选高亮显示！ <br></li>
-</ul>
-<h4 id="2016-05-09-版本：1-0"><a href="#2016-05-09-版本：1-0" class="headerlink" title="2016-05-09  版本：1.0"></a>2016-05-09  版本：1.0</h4><ul>
-<li>4.1.15、新增DemoVC5：最贴心的正则表达式封装！</li>
-<li>4.1.14、优化部分代码和代码结构！ <br></li>
-</ul>
-<h4 id="2016-05-07-版本：1-0"><a href="#2016-05-07-版本：1-0" class="headerlink" title="2016-05-07  版本：1.0"></a>2016-05-07  版本：1.0</h4><ul>
-<li>4.1.13、解决tableview的分割线短一截【详见HomeVC】</li>
-<li>4.1.12、新增全局键盘弹起收回处理</li>
-<li>4.1.11、新增DemoVC4：友盟分享和登陆的完美封装！</li>
-<li>4.1.10、新增BABaseProjectNoti.h文件，本文档的各种规范都在此说明！ <br></li>
-</ul>
-<h4 id="2016-05-06-版本：1-0"><a href="#2016-05-06-版本：1-0" class="headerlink" title="2016-05-06  版本：1.0"></a>2016-05-06  版本：1.0</h4><ul>
-<li>4.1.09、新增DemoVC3：点击button倒计时，两种比较常用的获取倒计时验证码的样式！</li>
-<li>4.1.08、新增封装：BAAutoSizeWithWH，功能：实现文字的宽高自适应！</li>
-<li>4.1.07、添加网络判断</li>
-<li>4.1.06、优化所有注释：格式统一为 /<em>! 计算frame </em>/ <br></li>
-</ul>
-<h4 id="2016-05-05-版本：1-0"><a href="#2016-05-05-版本：1-0" class="headerlink" title="2016-05-05  版本：1.0"></a>2016-05-05  版本：1.0</h4><ul>
-<li>4.1.05、完善AFN网络框架封装，实现清理缓存，自定义请求头功能！</li>
-<li>4.1.04、添加两种tabbarVC，可以自由选择，一种是完全自定义tabbarVC，一种是DVTabBarController <br></li>
-</ul>
-<h4 id="2016-05-04-版本：1-0"><a href="#2016-05-04-版本：1-0" class="headerlink" title="2016-05-04  版本：1.0"></a>2016-05-04  版本：1.0</h4><ul>
-<li>4.1.03、添加雪花加载动画 </li>
-<li>4.1.02、整理优化各级目录 </li>
-<li>4.1.01、创建框架 </li>
-</ul>
-<h2 id="5、系统要求"><a href="#5、系统要求" class="headerlink" title="5、系统要求"></a>5、系统要求</h2><p>该项目最低支持 iOS 7.0 和 Xcode 7.0。（部分动画效果仅支持iOS 8.0）使用时请仔细查看！</p>
-<h2 id="6、感谢"><a href="#6、感谢" class="headerlink" title="6、感谢"></a>6、感谢</h2><p>项目中集成了很多网络上民间大神的多年积累的优秀成果，结合自己项目开发中遇到的重难点，和很多开发者向我提起的疑难问题，在下综合整理并优化了下，最终成就了<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a> <br><br>在此，博爱再次感谢各位大神的源码贡献！ <br><br>希望开源项目<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>能够为众多iOS开发新手提供最简单、最快捷的开源项目！ <br><br>感谢大家的支持！</p>
-<p>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、聊天评论框的封装"><span class="toc-number">1.</span> <span class="toc-text">1、聊天评论框的封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、先看看『IQKeyboardManager』的使用吧："><span class="toc-number">2.</span> <span class="toc-text">2、先看看『IQKeyboardManager』的使用吧：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、具体解决办法"><span class="toc-number">3.</span> <span class="toc-text">3、具体解决办法</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"iOS开发第三方键盘处理的那些事儿　| 博爱 的 博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
 
 
 
@@ -431,9 +394,53 @@
 
 
 
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/18/iOS-Keyboard处理/" data-title="iOS开发第三方键盘处理的那些事儿" data-url="http://yoursite.com/2016/05/18/iOS-Keyboard处理/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"http://boaihome.duoshuo.com"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/04/27/BABaseProject/" title="下一篇: iOS开发项目框架 --&gt; BABaseProject">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/iOS-Keyboard处理/">iOS开发第三方键盘处理的那些事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/27/BABaseProject/">iOS开发项目框架 --> BABaseProject</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
