@@ -8,12 +8,7 @@ title: 博爱 的 博客
 # description:
 author: 孙博岩
 language: zh-Hans 
-timezone: Asia/Shanghai
-
-# Build settings  
-# use Github Flavored Markdown !important  
-# document: http://jekyllrb.com/docs/configuration/#kramdown  
-markdown: kramdown
+# timezone:
 
 # # URL
 # ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
