@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS开发第三方键盘处理的那些事儿 | 博爱 的 博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="OC," />
+  
+
+  <meta name="description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发第三方键盘处理的那些事儿">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/iOS-Keyboard处理/index.html">
+<meta property="og:site_name" content="博爱 的 博客">
+<meta property="og:description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
+<meta property="og:updated_time" content="2017-01-05T09:51:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发第三方键盘处理的那些事儿">
+<meta name="twitter:description" content="最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！详情请看：『BAKeyboardDemo』 ！
+1、聊天评论框的封装先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。但是本来用的『IQKeyboardManager』">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/boaihome.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">目录</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">目录</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、聊天评论框的封装"><span class="toc-text">1、聊天评论框的封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、先看看『IQKeyboardManager』的使用吧："><span class="toc-text">2、先看看『IQKeyboardManager』的使用吧：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、具体解决办法"><span class="toc-text">3、具体解决办法</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS-Keyboard处理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">iOS开发第三方键盘处理的那些事儿</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>孙博岩</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/OC/">OC</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-iOS-Keyboard处理"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>最近项目中遇到了键盘处理通知被调用多次的情况，废了好半天时间才找到解决办法，今天就给小伙伴儿们唠唠第三方键盘处理的那些坑！<br>详情请看：<a href="https://github.com/boai/BAKeyboardDemo" target="_blank" rel="external">『BAKeyboardDemo』</a> ！</p>
+<h2 id="1、聊天评论框的封装"><a href="#1、聊天评论框的封装" class="headerlink" title="1、聊天评论框的封装"></a>1、聊天评论框的封装</h2><p>先聊聊我项目中遇到的奇葩情况吧，一个直播界面，上面播放器，下面是分段控制器5个button，5个界面，其中三个界面最下面都是评论框，所以就封装了一个评论框公用。<br>但是本来用的<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>，开源键盘处理框架，可是在同一个界面有多个评论框就出现问题了。</p>
+<h2 id="2、先看看『IQKeyboardManager』的使用吧："><a href="#2、先看看『IQKeyboardManager』的使用吧：" class="headerlink" title="2、先看看『IQKeyboardManager』的使用吧："></a>2、先看看<a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">『IQKeyboardManager』</a>的使用吧：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">AppDelegate 中添加这段代码，就可以全局不用管键盘的弹起收回了！</span><br><span class="line"></span><br><span class="line">#pragma mark -  键盘处理</span><br><span class="line">- (void)completionHandleIQKeyboard</span><br><span class="line">&#123;</span><br><span class="line">IQKeyboardManager *manager = [IQKeyboardManager sharedManager];</span><br><span class="line">manager.enable = YES;</span><br><span class="line">manager.shouldResignOnTouchOutside = YES;</span><br><span class="line">manager.shouldToolbarUsesTextFieldTintColor = YES;</span><br><span class="line">manager.enableAutoToolbar = YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、具体解决办法"><a href="#3、具体解决办法" class="headerlink" title="3、具体解决办法"></a>3、具体解决办法</h2><p>但是我项目中得复杂情况就不行了，键盘弹起异常，收回也异常，尤其是用了聊天室这种view，处理的更麻烦，不要急，看看博爱这些年踩过的坑吧：<br>先看看键盘处理事件吧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">- 1、首先注册通知：</span><br><span class="line">- (void)registNotification</span><br><span class="line">&#123;</span><br><span class="line">[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];</span><br><span class="line">[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 2、再把后路想好：移除通知</span><br><span class="line">- (void)removeNotification</span><br><span class="line">&#123;</span><br><span class="line">[[NSNotificationCenter defaultCenter] removeObserver:self];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- 3、通知事件处理：</span><br><span class="line">/*! 键盘显示要做什么 */</span><br><span class="line">- (void)keyboardWasShown:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">NSDictionary *info                                  = [notification userInfo];</span><br><span class="line"></span><br><span class="line">double duration                                     = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">CGFloat curkeyBoardHeight                           = [[info objectForKey:@&quot;UIKeyboardBoundsUserInfoKey&quot;] CGRectValue].size.height;</span><br><span class="line">CGRect begin                                        = [[info objectForKey:@&quot;UIKeyboardFrameBeginUserInfoKey&quot;] CGRectValue];</span><br><span class="line">CGRect end                                          = [[info objectForKey:@&quot;UIKeyboardFrameEndUserInfoKey&quot;] CGRectValue];</span><br><span class="line"></span><br><span class="line">CGFloat keyBoardHeight;</span><br><span class="line"></span><br><span class="line">/*! 第三方键盘回调三次问题，监听仅执行最后一次 */</span><br><span class="line">if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))</span><br><span class="line">&#123;</span><br><span class="line">keyBoardHeight                                  = curkeyBoardHeight;</span><br><span class="line">[UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">CGRect viewFrame                            = [self getCurrentViewController].view.frame;</span><br><span class="line">viewFrame.origin.y -= keyBoardHeight;</span><br><span class="line">[self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)keyboardWasHidden:(NSNotification *)notification</span><br><span class="line">&#123;</span><br><span class="line">NSDictionary *info = [notification userInfo];</span><br><span class="line">double duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];</span><br><span class="line"></span><br><span class="line">[UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">CGRect viewFrame = [self getCurrentViewController].view.frame;</span><br><span class="line">viewFrame.origin.y = 0;</span><br><span class="line">[self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*!</span><br><span class="line">*  获取当前View的VC</span><br><span class="line">*</span><br><span class="line">*  @return 获取当前View的VC</span><br><span class="line">*/</span><br><span class="line">- (UIViewController *)getCurrentViewController</span><br><span class="line">&#123;</span><br><span class="line">for (UIView *view = self; view; view = view.superview)</span><br><span class="line">&#123;</span><br><span class="line">UIResponder *nextResponder = [view nextResponder];</span><br><span class="line">if ([nextResponder isKindOfClass:[UIViewController class]])</span><br><span class="line">&#123;</span><br><span class="line">return (UIViewController *)nextResponder;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体情况是这样的，在测试过程中，其他界面的评论框都没问题，就直播这个VC有问题，就一步步往下找，后来发现：iOS的第三方键盘会在【- (void)keyboardWasShown:(NSNotification *)notification】这个方法中来回调用多次，不止三次好像，然后就想到一个办法，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*! 第三方键盘回调三次问题，监听仅执行最后一次 */</span><br><span class="line">if(begin.size.height &gt; 0 &amp;&amp; (begin.origin.y - end.origin.y &gt; 0))</span><br><span class="line">&#123;</span><br><span class="line">keyBoardHeight                                  = curkeyBoardHeight;</span><br><span class="line">[UIView animateWithDuration:duration animations:^&#123;</span><br><span class="line"></span><br><span class="line">CGRect viewFrame                            = [self getCurrentViewController].view.frame;</span><br><span class="line">viewFrame.origin.y -= keyBoardHeight;</span><br><span class="line">[self getCurrentViewController].view.frame = viewFrame;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里处理这个键盘弹起事件中第一次获取键盘的高度，然后就直接把上面的view给弹上去，这样就避免了第三方键盘会来回调用多次方法，造成键盘弹起异常的问题就迎刃而解了！</p>
+<ul>
+<li>4、如果这样还不能解决你的键盘问题，还有中万能方法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">平时可能遇到这种需求：点击一个按钮，弹出评论框和键盘，这时你就需要这样处理了：</span><br><span class="line">1、创建一个  TextField、TextField2，把TextField位置放到屏幕外面看不到的地方，TextField 有个属性，用法如下： self.replyTextField.inputAccessoryView = self.replyTextField2;</span><br><span class="line"></span><br><span class="line">需要添加target 事件：        [self.replyTextField addTarget:self action:@selector(replyTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];</span><br><span class="line"></span><br><span class="line">事件方法处理：</span><br><span class="line">- (void)replyTextFieldChanged:(UITextField *)textField</span><br><span class="line">&#123;</span><br><span class="line">NSLog(@&quot;textFieldShouldBeginEditing输入内容****：%@&quot;, textField.text);</span><br><span class="line">if (textField != self.replyTextField2)</span><br><span class="line">&#123;</span><br><span class="line">self.replyTextField2.text = textField.text;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;textFieldShouldBeginEditing输入内容1：%@&quot;, self.replyTextField.text);</span><br><span class="line">NSLog(@&quot;textFieldShouldBeginEditing输入内容2：%@&quot;, self.replyTextField2.text);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-  (BOOL)textFieldShouldReturn:(UITextField *)textField</span><br><span class="line">&#123;</span><br><span class="line">[self.replyTextField resignFirstResponder];</span><br><span class="line">[self.replyTextField2 resignFirstResponder];</span><br><span class="line"></span><br><span class="line">[[self getCurrentViewController].view endEditing:YES];</span><br><span class="line"></span><br><span class="line">if (self.clickIndexBlock)</span><br><span class="line">&#123;</span><br><span class="line">self.clickIndexBlock(self.replyTextField2.text);</span><br><span class="line">self.replyTextField.text = @&quot;&quot;;</span><br><span class="line">self.replyTextField2.text = @&quot;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">这样处理，不管你的键盘在哪里，输入框都会跟着你的键盘走，而且不会再出现错位，计算不准确的地方！&lt;br&gt;</span><br><span class="line">好了，有啥问题可以加我们的QQ群一起讨论：479663605 &lt;br&gt;</span><br></pre></td></tr></table></figure>
+<p>详情请看：<a href="https://github.com/boai/BAKeyboardDemo" target="_blank" rel="external">『BAKeyboardDemo』</a><br>More info: <a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 博爱</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/weiXinPay.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/aliPay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-iOS-Keyboard处理" 
+      data-title="iOS开发第三方键盘处理的那些事儿" data-url="http://yoursite.com/2016/07/10/iOS-Keyboard处理/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"boai1616"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

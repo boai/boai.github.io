@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS随机色实现原理详细解析 | 博爱 的 博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="OC," />
+  
+
+  <meta name="description" content="iOS随机色实现原理详细解析1、前沿：
+最近做弹幕遇到蛋疼的事了，字体颜色非要用十六进制的随机颜色，找了好久没有相关资料，就自己动手了，以后小伙伴儿们再也不用担心随机颜色了！
+
+2、实现原理
+Apple 公司为我们提供了自定义 RGB 色值的方法：
+
+1+ (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS随机色实现原理详细解析">
+<meta property="og:url" content="http://yoursite.com/2016/12/10/iOS随机色实现原理详细解析/index.html">
+<meta property="og:site_name" content="博爱 的 博客">
+<meta property="og:description" content="iOS随机色实现原理详细解析1、前沿：
+最近做弹幕遇到蛋疼的事了，字体颜色非要用十六进制的随机颜色，找了好久没有相关资料，就自己动手了，以后小伙伴儿们再也不用担心随机颜色了！
+
+2、实现原理
+Apple 公司为我们提供了自定义 RGB 色值的方法：
+
+1+ (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat">
+<meta property="og:updated_time" content="2017-01-06T05:37:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS随机色实现原理详细解析">
+<meta name="twitter:description" content="iOS随机色实现原理详细解析1、前沿：
+最近做弹幕遇到蛋疼的事了，字体颜色非要用十六进制的随机颜色，找了好久没有相关资料，就自己动手了，以后小伙伴儿们再也不用担心随机颜色了！
+
+2、实现原理
+Apple 公司为我们提供了自定义 RGB 色值的方法：
+
+1+ (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/boaihome.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">目录</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">目录</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS随机色实现原理详细解析"><span class="toc-text">iOS随机色实现原理详细解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、前沿："><span class="toc-text">1、前沿：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、实现原理"><span class="toc-text">2、实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、先取随机数"><span class="toc-text">3、先取随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、iOS-随机颜色-宏定义方法"><span class="toc-text">4、iOS 随机颜色-宏定义方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、iOS-随机颜色-十六进制方法"><span class="toc-text">5、iOS 随机颜色-十六进制方法</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS随机色实现原理详细解析" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">iOS随机色实现原理详细解析</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.12.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>孙博岩</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/OC/">OC</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-iOS随机色实现原理详细解析"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="iOS随机色实现原理详细解析"><a href="#iOS随机色实现原理详细解析" class="headerlink" title="iOS随机色实现原理详细解析"></a>iOS随机色实现原理详细解析</h1><h2 id="1、前沿："><a href="#1、前沿：" class="headerlink" title="1、前沿："></a>1、前沿：</h2><blockquote>
+<p>最近做弹幕遇到蛋疼的事了，字体颜色非要用十六进制的随机颜色，找了好久没有相关资料，就自己动手了，以后小伙伴儿们再也不用担心随机颜色了！</p>
+</blockquote>
+<h2 id="2、实现原理"><a href="#2、实现原理" class="headerlink" title="2、实现原理"></a>2、实现原理</h2><blockquote>
+<p>Apple 公司为我们提供了自定义 RGB 色值的方法：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从方法名可以看出<br>使用该方法设置我们需要的颜色需要三个(CGFloat)参数：(CGFloat)red (CGFloat)green (CGFloat)blue 和一个(CGFloat)设置透明度。<br><br>    我们常说的 RGB 三基色：范围0-255；而这三个参数确实需要归一化后的参数，即范围为0-1；<br>所以我们在使用的过程中，需要先对RGB归一化为：R/255.0 G/255.0 B/255.0；<br></p>
+</blockquote>
+<h2 id="3、先取随机数"><a href="#3、先取随机数" class="headerlink" title="3、先取随机数"></a>3、先取随机数</h2><blockquote>
+<p>OC 的随机数取值方法：arc4random_uniform(10)，arc4random_uniform()后面括号里的值就是我们要取的随机数的最大值.<br><br>例如：RGB 色值都是介于 0~255之间，所以我们要取随机颜色的话必须要取到每个色值的随机值：<br>arc4random_uniform(255)</p>
+</blockquote>
+<h2 id="4、iOS-随机颜色-宏定义方法"><a href="#4、iOS-随机颜色-宏定义方法" class="headerlink" title="4、iOS 随机颜色-宏定义方法"></a>4、iOS 随机颜色-宏定义方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 随机颜色（RGB）</span><br><span class="line"></span><br><span class="line">用一个宏就搞定了：</span><br><span class="line">#define BARandomColor      [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1.0f];</span><br></pre></td></tr></table></figure>
+<h2 id="5、iOS-随机颜色-十六进制方法"><a href="#5、iOS-随机颜色-十六进制方法" class="headerlink" title="5、iOS 随机颜色-十六进制方法"></a>5、iOS 随机颜色-十六进制方法</h2><ul>
+<li>5.1 十六进制【来源：百度百科】<br><br>十六进制（英文名称：Hexadecimal），是计算机中数据的一种表示方法。同我们日常生活中的表示法不一样。它由0-9，A-F组成，字母不区分大小写。与10进制的对应关系是：0-9对应0-9；A-F对应10-15；N进制的数可以用0~(N-1)的数表示，超过9的用字母A-F。</li>
+<li>5.2 iOS 开发中的实际应用 <br><br>我们把所有的十六进制的数字创建一个十六进制数组：<br><code>NSArray *colorArray = @[@&quot;0&quot;, @&quot;1&quot;, @&quot;2&quot;, @&quot;3&quot;, @&quot;4&quot;, @&quot;5&quot;, @&quot;6&quot;, @&quot;7&quot;, @&quot;8&quot;, @&quot;9&quot;,@&quot;a&quot;, @&quot;b&quot;, @&quot;c&quot;, @&quot;d&quot;, @&quot;e&quot;, @&quot;f&quot;];</code> <br><br>然后定义一个（NSString <em>）类型的字符变量来取值备用：<br>`NSString </em>colorString = @””;` <br><br>接着我们就要遍历这个颜色数组，取随机值，然后赋值给上面声明的 colorString 变量：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (NSInteger i= 0; i &lt; 6; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int r = arc4random()%colorArr.count;</span><br><span class="line">        NSString *string = colorArr[r];</span><br><span class="line">        colorString = [NSString stringWithFormat:@&quot;%@%@&quot;, colorString, string];</span><br><span class="line">        NSLog(@&quot;随机颜色为3：%@&quot;, colorString);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>5.3 最后我们还需要优化下细节，比如：<br><br>十六进制的颜色色值我们只有六位数，所以我们就取前六位就行了：<br><code>NSString *colorStr = [colorString substringFromIndex:6];</code></li>
+<li>5.4 还可以更细心点，万一我们取到的值不是6位，就要特殊处理了：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (colorStr.length &lt; 6)</span><br><span class="line">&#123; </span><br><span class="line">	colorStr = @&quot;00EBFF&quot;; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>5.5 说了这么多，看看最终的源码吧：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - 随机颜色（十六进制）</span><br><span class="line">- (NSString *)ba_randomColor</span><br><span class="line">&#123;</span><br><span class="line">    NSString *colorString = @&quot;&quot;;</span><br><span class="line">    NSArray *colorArray = @[@&quot;0&quot;, @&quot;1&quot;, @&quot;2&quot;, @&quot;3&quot;, @&quot;4&quot;, @&quot;5&quot;, @&quot;6&quot;, @&quot;7&quot;, @&quot;8&quot;, @&quot;9&quot;,@&quot;a&quot;, @&quot;b&quot;, @&quot;c&quot;, @&quot;d&quot;, @&quot;e&quot;, @&quot;f&quot;];</span><br><span class="line">    </span><br><span class="line">    for (NSInteger i= 0; i &lt; 6; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int r = arc4random()%colorArray.count;</span><br><span class="line">        NSString *string = colorArray[r];</span><br><span class="line">        colorString = [NSString stringWithFormat:@&quot;%@%@&quot;, colorString, string];</span><br><span class="line">        NSLog(@&quot;随机颜色为3：%@&quot;, colorString);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;随机颜色为：%@&quot;, colorString);</span><br><span class="line">    return colorString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详情请看：<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>！</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 博爱</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/weiXinPay.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/aliPay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-iOS随机色实现原理详细解析" 
+      data-title="iOS随机色实现原理详细解析" data-url="http://yoursite.com/2016/12/10/iOS随机色实现原理详细解析/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"boai1616"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

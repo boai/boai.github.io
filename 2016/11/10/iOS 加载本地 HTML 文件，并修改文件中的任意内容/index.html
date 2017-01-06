@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 加载本地 HTML 文件，并修改文件中的任意内容 | 博爱 的 博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="OC," />
+  
+
+  <meta name="description" content="iOS 加载本地 HTML 文件，并修改文件中的任意内容
+最近项目中要用到本地 HTML 的样式，并动态修改 HTML 中的 title 和 很多内容，找了很多方法都无法实现，最后解决了，代码如下：
+
+123456789101112131415161718UIWebView *web = [UIWebView new];web.frame = _detailView.bounds;web.auto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 加载本地 HTML 文件，并修改文件中的任意内容">
+<meta property="og:url" content="http://yoursite.com/2016/11/10/iOS 加载本地 HTML 文件，并修改文件中的任意内容/index.html">
+<meta property="og:site_name" content="博爱 的 博客">
+<meta property="og:description" content="iOS 加载本地 HTML 文件，并修改文件中的任意内容
+最近项目中要用到本地 HTML 的样式，并动态修改 HTML 中的 title 和 很多内容，找了很多方法都无法实现，最后解决了，代码如下：
+
+123456789101112131415161718UIWebView *web = [UIWebView new];web.frame = _detailView.bounds;web.auto">
+<meta property="og:updated_time" content="2016-12-20T12:34:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 加载本地 HTML 文件，并修改文件中的任意内容">
+<meta name="twitter:description" content="iOS 加载本地 HTML 文件，并修改文件中的任意内容
+最近项目中要用到本地 HTML 的样式，并动态修改 HTML 中的 title 和 很多内容，找了很多方法都无法实现，最后解决了，代码如下：
+
+123456789101112131415161718UIWebView *web = [UIWebView new];web.frame = _detailView.bounds;web.auto">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/boaihome.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">目录</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">目录</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS-加载本地-HTML-文件，并修改文件中的任意内容"><span class="toc-text">iOS 加载本地 HTML 文件，并修改文件中的任意内容</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-iOS 加载本地 HTML 文件，并修改文件中的任意内容" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">iOS 加载本地 HTML 文件，并修改文件中的任意内容</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>孙博岩</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/OC/">OC</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-iOS 加载本地 HTML 文件，并修改文件中的任意内容"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="iOS-加载本地-HTML-文件，并修改文件中的任意内容"><a href="#iOS-加载本地-HTML-文件，并修改文件中的任意内容" class="headerlink" title="iOS 加载本地 HTML 文件，并修改文件中的任意内容"></a>iOS 加载本地 HTML 文件，并修改文件中的任意内容</h1><blockquote>
+<p>最近项目中要用到本地 HTML 的样式，并动态修改 HTML 中的 title 和 很多内容，找了很多方法都无法实现，最后解决了，<br>代码如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">UIWebView *web = [UIWebView new];</span><br><span class="line">web.frame = _detailView.bounds;</span><br><span class="line">web.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;</span><br><span class="line">web.scrollView.bounces = NO;</span><br><span class="line">[_detailView addSubview: web];</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSBundle mainBundle] URLForResource:@&quot;video_synopsis.html&quot; withExtension:nil];</span><br><span class="line">NSString *htmlContent = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];</span><br><span class="line">NSString *tempContent = [htmlContent stringByReplacingOccurrencesOfString:@&quot;&lt;!--$content--&gt;&quot; withString:self.model.desc];</span><br><span class="line">NSString *tempContent2 = [tempContent stringByReplacingOccurrencesOfString:@&quot;&lt;!--$title--&gt;&quot; withString:self.model.title];</span><br><span class="line">NSString *tempContent3 = [tempContent2 stringByReplacingOccurrencesOfString:@&quot;&lt;!--$videoAmount--&gt;&quot; withString:self.model.viewNum];</span><br><span class="line">NSString *tempContent4 = [tempContent3 stringByReplacingOccurrencesOfString:@&quot;&lt;!--$commentsAmount--&gt;&quot; withString:self.model.reviewNum];</span><br><span class="line"></span><br><span class="line">/*! 一定要记得这一步，要不然本地的图片加载不出来 */</span><br><span class="line">NSString *basePath = [[NSBundle mainBundle] bundlePath];</span><br><span class="line">NSURL *baseURL = [NSURL fileURLWithPath:basePath];</span><br><span class="line"></span><br><span class="line">[web loadHTMLString:tempContent4 baseURL:baseURL];</span><br></pre></td></tr></table></figure>
+<p>详情请看：<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>！</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 博爱</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/weiXinPay.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/aliPay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-iOS 加载本地 HTML 文件，并修改文件中的任意内容" 
+      data-title="iOS 加载本地 HTML 文件，并修改文件中的任意内容" data-url="http://yoursite.com/2016/11/10/iOS 加载本地 HTML 文件，并修改文件中的任意内容/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"boai1616"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

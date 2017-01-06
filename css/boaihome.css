@@ -1,0 +1,58 @@
+/*@font-face {
+  font-family: "Meiryo";
+  src: url("/fonts/Meiryo.eot");*/
+  /* IE9 */
+/*  src: url("/fonts/Meiryo.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  /*url("/fonts/Meiryo.woff") format("woff"),  chrome, firefox */
+  /*url("/fonts/Meiryo.ttf") format("truetype"),*/ /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  /*url("/fonts/Meiryo.svg#Meiryo") format("svg");*/
+  /* iOS 4.1- */
+/*  font-style: normal;
+  font-weight: normal;*/
+/*}*/
+
+html.page-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background-color: transparent;*/
+  /*background-color: #E0FFFF;*/
+  /*background-color: #7FFFD4;*/
+
+  /*background-image: url('/images/bg.jpg');*/
+  /*background-size: cover;*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
+
+  background: linear-gradient( #1abc9c, transparent), linear-gradient( 90deg, skyblue, transparent), linear-gradient( -90deg, coral, transparent);
+  background-blend-mode: screen;
+
+  /*background: linear-gradient(to left, #5f2c82, #49a09d);*/
+}
+
+/*@keyframes go{
+    from{-webkit-transform: scale(1);
+             -ms-transform: scale(1);
+            -moz-transform: scale(1);
+              -o-transform: scale(1);
+                 transform: scale(1);
+                 opacity:1;}
+    to{-webkit-transform: scale(2);
+           -ms-transform: scale(2);
+          -moz-transform: scale(2);
+            -o-transform: scale(2);
+               transform: scale(2);
+               opacity:0;}
+}
+.skill .touxiang-bg:hover .txt1{-webkit-animation:go 1s linear infinite;
+                                    -ms-animation:go 1s linear infinite;
+                                   -moz-animation:go 1s linear infinite;
+                                     -o-animation:go 1s linear infinite;
+                                        animation:go 1s linear infinite;}
+.skill .touxiang-bg:hover .txt2{-webkit-animation:go 1s linear 0.5s infinite;
+                                    -ms-animation:go 1s linear 0.5s infinite;
+                                   -moz-animation:go 1s linear 0.5s infinite;
+                                     -o-animation:go 1s linear 0.5s infinite;
+                                        animation:go 1s linear 0.5s infinite;}

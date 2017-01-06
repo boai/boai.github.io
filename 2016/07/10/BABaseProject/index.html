@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS开发项目框架 --&gt; BABaseProject | 博爱 的 博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="OC," />
+  
+
+  <meta name="description" content="一个基于 MVVM 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！ 
+
+本项目使用内存泄露检测工具『MLeaksFinder』！ 所有demo均检测通过！欢迎大家使用！
+
+大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！1、性能问题 和 MVVM模式优点1.1、开发中遇到的 性能问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发项目框架 --> BABaseProject">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/BABaseProject/index.html">
+<meta property="og:site_name" content="博爱 的 博客">
+<meta property="og:description" content="一个基于 MVVM 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！ 
+
+本项目使用内存泄露检测工具『MLeaksFinder』！ 所有demo均检测通过！欢迎大家使用！
+
+大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！1、性能问题 和 MVVM模式优点1.1、开发中遇到的 性能问题：">
+<meta property="og:updated_time" content="2016-12-20T12:33:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发项目框架 --> BABaseProject">
+<meta name="twitter:description" content="一个基于 MVVM 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！ 
+
+本项目使用内存泄露检测工具『MLeaksFinder』！ 所有demo均检测通过！欢迎大家使用！
+
+大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！1、性能问题 和 MVVM模式优点1.1、开发中遇到的 性能问题：">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/boaihome.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">目录</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">目录</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！"><span class="toc-text">大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、性能问题-和-MVVM模式优点"><span class="toc-text">1、性能问题 和 MVVM模式优点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1、开发中遇到的-性能问题："><span class="toc-text">1.1、开发中遇到的 性能问题：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2、解决方法：MVVM思想"><span class="toc-text">1.2、解决方法：MVVM思想</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3、MVVM模式的-优点"><span class="toc-text">1.3、MVVM模式的 优点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、个人简介"><span class="toc-text">2、个人简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、推荐"><span class="toc-text">3、推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、项目简介-和-使用指南"><span class="toc-text">4、项目简介 和 使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、项目简介"><span class="toc-text">4.1、项目简介 </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-使用指南"><span class="toc-text">4.2 使用指南 </span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、更新记录【倒叙】"><span class="toc-text">5、更新记录【倒叙】</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-07-08-版本：2-1"><span class="toc-text">2016-07-08  版本：2.1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-07-05-版本：2-1"><span class="toc-text">2016-07-05  版本：2.1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-07-04-版本：2-1"><span class="toc-text">2016-07-04  版本：2.1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-07-03-版本：2-1"><span class="toc-text">2016-07-03  版本：2.1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-23-版本：2-0"><span class="toc-text">2016-06-23  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-21-版本：2-0"><span class="toc-text">2016-06-21  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-19-版本：2-0"><span class="toc-text">2016-06-19  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-14-版本：2-0"><span class="toc-text">2016-06-14  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-13-版本：2-0"><span class="toc-text">2016-06-13  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-04-版本：2-0"><span class="toc-text">2016-06-04  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-06-03-版本：2-0"><span class="toc-text">2016-06-03  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-31-版本：2-0"><span class="toc-text">2016-05-31  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-30-版本：2-0"><span class="toc-text">2016-05-30  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-25-版本：2-0"><span class="toc-text">2016-05-25  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-10-版本：2-0"><span class="toc-text">2016-05-10  版本：2.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-10-版本：1-0"><span class="toc-text">2016-05-10  版本：1.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-09-版本：1-0"><span class="toc-text">2016-05-09  版本：1.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-07-版本：1-0"><span class="toc-text">2016-05-07  版本：1.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-06-版本：1-0"><span class="toc-text">2016-05-06  版本：1.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-05-版本：1-0"><span class="toc-text">2016-05-05  版本：1.0</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2016-05-04-版本：1-0"><span class="toc-text">2016-05-04  版本：1.0</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、系统要求"><span class="toc-text">6、系统要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、感谢"><span class="toc-text">7、感谢</span></a>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-BABaseProject" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">iOS开发项目框架 --&gt; BABaseProject</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>孙博岩</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/OC/">OC</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-BABaseProject"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>一个基于 MVVM 和 MVC 设计模式的基本项目框架，项目用到的各种类，各种封装，各种三方库的综合项目，欢迎大家使用！ <br></p>
+<blockquote>
+<p><strong>本项目使用内存泄露检测工具<a href="http://wereadteam.github.io/2016/02/22/MLeaksFinder/" target="_blank" rel="external">『MLeaksFinder』</a>！</strong> <br><br><strong>所有demo均检测通过！欢迎大家使用！</strong></p>
+</blockquote>
+<h6 id="大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！"><a href="#大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！" class="headerlink" title="大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！"></a>大家有好的需求，或者项目中遇到的重难点，可以在issue里面提需求，一定要记得联系我哈！有时间我会处理的！</h6><h2 id="1、性能问题-和-MVVM模式优点"><a href="#1、性能问题-和-MVVM模式优点" class="headerlink" title="1、性能问题 和 MVVM模式优点"></a>1、性能问题 和 MVVM模式优点</h2><h5 id="1-1、开发中遇到的-性能问题："><a href="#1-1、开发中遇到的-性能问题：" class="headerlink" title="1.1、开发中遇到的 性能问题："></a>1.1、开发中遇到的 性能问题：</h5><ul>
+<li>1.1.1 cell的高度应该提前计算出来</li>
+<li>1.1.2 cell的高度必须要先计算出每个子控件的frame，才能确定</li>
+<li>1.1.3 如果在cell的set方法计算子控件的位置，会比较耗性能</li>
+</ul>
+<h5 id="1-2、解决方法：MVVM思想"><a href="#1-2、解决方法：MVVM思想" class="headerlink" title="1.2、解决方法：MVVM思想"></a>1.2、解决方法：MVVM思想</h5><ul>
+<li>M:模型 <br></li>
+<li>V:视图 <br></li>
+<li>VM:视图模型（模型包装视图模型，模型+模型对应视图的frame）</li>
+</ul>
+<h5 id="1-3、MVVM模式的-优点"><a href="#1-3、MVVM模式的-优点" class="headerlink" title="1.3、MVVM模式的 优点"></a>1.3、MVVM模式的 优点</h5><p>MVVM模式和MVC模式一样，主要目的是分离视图（View）和模型（Model），有几大优点</p>
+<ul>
+<li>1.3.1 低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li>
+<li>1.3.2 可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li>
+<li>1.3.3 独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。</li>
+<li>1.3.4 可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li>
+</ul>
+<h2 id="2、个人简介"><a href="#2、个人简介" class="headerlink" title="2、个人简介"></a>2、个人简介</h2><p>2.1、<a href="http://weibo.com/2706728003/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" target="_blank" rel="external">『微博：博爱1616』</a><br>2.2、<a href="http://boai.github.io" target="_blank" rel="external">『博客』</a><br>2.3、<a href="http://www.jianshu.com/users/95c9800fdf47/latest_articles" target="_blank" rel="external">『简书』</a><br>2.4、<a href="http://www.jianshu.com/collection/072d578bf782" target="_blank" rel="external">『简书专题链接』</a> <br></p>
+<p><strong>如果大神发现其中代码有bug，希望可以尽快联系本人修复，在此感谢各路大神的帮助</strong> <br></p>
+<h2 id="3、推荐"><a href="#3、推荐" class="headerlink" title="3、推荐"></a>3、推荐</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:center">类库</th>
+<th style="text-align:left">简介及功能介绍 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">3.1</td>
+<td style="text-align:center"><a href="https://github.com/boai/BAButton" target="_blank" rel="external">『BAButton』</a></td>
+<td style="text-align:left">完全实现 UIButton 的自定义的类库。pod 导入：<code>pod &#39;BAButton&#39;, &#39;~&gt; 1.0.1&#39;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">3.2</td>
+<td style="text-align:center"><a href="http://www.cnblogs.com/boai/p/4977976.html" target="_blank" rel="external">pod安装和使用方法</a></td>
+<td style="text-align:left">对pod还是不熟的同学，可以看下我的博客，是最新的pod安装和使用方法，一直更新！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.3</td>
+<td style="text-align:center"><a href="https://github.com/boai/BASegmentControl" target="_blank" rel="external">『BASegmentControl』</a></td>
+<td style="text-align:left">新增网易新闻的滑动SegmentControl，基于<a href="https://github.com/HeshamMegid/HMSegmentedControl" target="_blank" rel="external">『HMSegmentedControl』</a>的完美二次封装！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.4</td>
+<td style="text-align:center"><a href="https://github.com/boai/BAReminderDemo" target="_blank" rel="external">『BAReminderDemo』</a></td>
+<td style="text-align:left">系统提醒和日历提醒，最近做了一个预约功能，有用到系统提醒和日历提醒，就写了这个demo！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.5</td>
+<td style="text-align:center"><a href="https://github.com/boai/BALocalNotification" target="_blank" rel="external">『BALocalNotification』</a></td>
+<td style="text-align:left">本地通知最新完美封装，最近整理了下本地通知和极光推送，有很多坑都踩过了，刚刚整理出来的完美封装，肯定适合大部分场合，也可以用此封装写闹钟，也提醒事件，都可以！如果喜欢，请在git上点个星吧！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.6</td>
+<td style="text-align:center"><a href="https://github.com/boai/BANetManager" target="_blank" rel="external">『BANetManager』</a></td>
+<td style="text-align:left">基于<a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">『AFNetworking 3.1』</a>！最新版本的封装，集成了get/post 方法请求数据，单图/多图上传，视频上传/下载，网络监测 等多种网络请求方式！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.7</td>
+<td style="text-align:center"><a href="http://www.cnblogs.com/boai/p/5337558.html" target="_blank" rel="external">『APP中的文字和APP名字的国际化多语言处理』</a></td>
+<td style="text-align:left">最全、最贴心的国际化处理博客！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.8</td>
+<td style="text-align:center">3D Touch的纯代码实现方法</td>
+<td style="text-align:left">详见：<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>的<code>appdelegate</code>！</td>
+</tr>
+<tr>
+<td style="text-align:left">3.9</td>
+<td style="text-align:center"><a href="https://github.com/boai/BACustomAlertView" target="_blank" rel="external">『BACustomAlertView』</a></td>
+<td style="text-align:left">目前为止，最为精简的alert封装，以后alert就用博爱的<a href="https://github.com/boai/BACustomAlertView" target="_blank" rel="external">『BACustomAlertView』</a>！</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4、项目简介-和-使用指南"><a href="#4、项目简介-和-使用指南" class="headerlink" title="4、项目简介 和 使用指南"></a>4、项目简介 和 使用指南</h2><h4 id="4-1、项目简介"><a href="#4-1、项目简介" class="headerlink" title="4.1、项目简介 "></a>4.1、项目简介 <br></h4><p><strong>主要使用 MVVM 和 MVC 设计模式，共分为三大类：</strong> <br></p>
+<p><strong>4.1.1、Main</strong> <br></p>
+<ul>
+<li>主要功能：三种tabbarVC，可以自由选择，一种是完全自定义tabbarVC，一种是DVTabBarController，一种是storeboard搭建的tabBarController <br></li>
+</ul>
+<p><strong>4.1.2、BAMainCode</strong> <br></p>
+<ul>
+<li>4.1.2.1、BACode    【主要代码】   如：Home(首页)、Message(消息)、Discover(发现)、Profile(我) <br></li>
+<li>4.1.2.2、BABaseData【基类】      如：BABaseVC、BABaseView、BABaseModel <br></li>
+<li>4.1.2.3、BALib     【三方库】    如：不能用pod更新的三方库可以放在这里 <br></li>
+<li>4.1.2.4、BATools   【工具类】    如：BACategory(分类)、BADataBase(数据库)、BAMacros(宏)、BANetManager(网络类)、BAKit(工具类) <br></li>
+<li>4.1.2.5、Resources 【资源】      如：字体、Plist、图片 <br></li>
+<li>4.1.2.6、Other     【其他代码】   如： <br></li>
+<li>4.1.2.7、BACustom  【其他自定义】 如：暂时不知道放在哪里的自定义文件可放在这里 <br></li>
+</ul>
+<p><strong>4.1.3、Supporting Files</strong> <br></p>
+<ul>
+<li>4.1.3.1 这里暂时放置系统的文件，如：AppDelegate、Main.storyboard、Assets.xcassets、Assets.xcassets、main.m <br></li>
+</ul>
+<h4 id="4-2-使用指南"><a href="#4-2-使用指南" class="headerlink" title="4.2 使用指南 "></a>4.2 使用指南 <br></h4><p>使用的时候删除每个VC里面的DemoVC文件夹即可！<br><br>DemoVC文件夹：是专门展示各级样例用法的文件夹！</p>
+<h2 id="5、更新记录【倒叙】"><a href="#5、更新记录【倒叙】" class="headerlink" title="5、更新记录【倒叙】"></a>5、更新记录【倒叙】</h2><h5 id="2016-07-08-版本：2-1"><a href="#2016-07-08-版本：2-1" class="headerlink" title="2016-07-08  版本：2.1"></a>2016-07-08  版本：2.1</h5><ul>
+<li>5.2.21、新增上下拉刷新的最简单写法，你肯定没用过的写法！详见：【首页】栏目DemoVC11中的网络请求写法！</li>
+</ul>
+<h5 id="2016-07-05-版本：2-1"><a href="#2016-07-05-版本：2-1" class="headerlink" title="2016-07-05  版本：2.1"></a>2016-07-05  版本：2.1</h5><ul>
+<li>5.2.20、新增BAKitManager，用链式写法封装常用UIkit控件！详见：【消息】栏目DemoVC2-1中的cell的label写法！</li>
+</ul>
+<h5 id="2016-07-04-版本：2-1"><a href="#2016-07-04-版本：2-1" class="headerlink" title="2016-07-04  版本：2.1"></a>2016-07-04  版本：2.1</h5><ul>
+<li>5.2.19、【消息】栏目，新增DemoVC2-1，封装baseCell，tableView的高级用法1，！详见：【消息】栏目DemoVC2-1！</li>
+</ul>
+<h5 id="2016-07-03-版本：2-1"><a href="#2016-07-03-版本：2-1" class="headerlink" title="2016-07-03  版本：2.1"></a>2016-07-03  版本：2.1</h5><ul>
+<li>5.2.18、新增tabbar第二个按钮【消息】栏目，里面都是常用控件的高级用法，！详见：BAMessageViewController！</li>
+</ul>
+<h5 id="2016-06-23-版本：2-0"><a href="#2016-06-23-版本：2-0" class="headerlink" title="2016-06-23  版本：2.0"></a>2016-06-23  版本：2.0</h5><ul>
+<li>5.2.17、新增跑马灯广告处理，横向、垂直滚动广告，新增点击事件处理！详见：DemoVC3！</li>
+</ul>
+<h5 id="2016-06-21-版本：2-0"><a href="#2016-06-21-版本：2-0" class="headerlink" title="2016-06-21  版本：2.0"></a>2016-06-21  版本：2.0</h5><ul>
+<li>5.2.16、新增DemoVC12：五种自定义警告框的方法，系统alert、actionSheet的封装，详见：DemoVC12！</li>
+</ul>
+<h5 id="2016-06-19-版本：2-0"><a href="#2016-06-19-版本：2-0" class="headerlink" title="2016-06-19  版本：2.0"></a>2016-06-19  版本：2.0</h5><ul>
+<li>5.2.16、优化网络类的封装：</li>
+<li>1、集成get / post / put / delete等常用请求方式的封装</li>
+<li>2、集成单图/多图上传，让图片上传更简单，自带压缩处理</li>
+<li>3、集成视频上传/下载，和文件下载，让视频的上传下载更方便，支持异步下载【待测试】</li>
+<li>5、集成网络监测，让你实时监测你的宝贝APP的网络状态</li>
+</ul>
+<h5 id="2016-06-14-版本：2-0"><a href="#2016-06-14-版本：2-0" class="headerlink" title="2016-06-14  版本：2.0"></a>2016-06-14  版本：2.0</h5><ul>
+<li>5.2.15、正则表达式更新：验证身份证号（15位或18位数字）【最全的身份证校验，带校验省份、生日】，详见：DemoVC5！</li>
+<li>5.2.14、新增webView的高度获取，详见：DemoVC7！</li>
+<li>5.2.13、新增cell 的五种动画显示方式！详见：HomeVC！</li>
+</ul>
+<h5 id="2016-06-13-版本：2-0"><a href="#2016-06-13-版本：2-0" class="headerlink" title="2016-06-13  版本：2.0"></a>2016-06-13  版本：2.0</h5><ul>
+<li>5.2.12、新增了一种跑马灯广告效果，希望能帮助部分用户！详见：DemoVC3！</li>
+</ul>
+<h5 id="2016-06-04-版本：2-0"><a href="#2016-06-04-版本：2-0" class="headerlink" title="2016-06-04  版本：2.0"></a>2016-06-04  版本：2.0</h5><ul>
+<li>5.2.11、新增StoreBoard版的tabbar，具体使用详情请看appdelegate，已修复使用StoreBoard不能更改tabbar选中颜色的问题！</li>
+<li>5.2.10、APP中的文字和APP名字的国际化多语言处理，详情请看：<a href="http://www.cnblogs.com/boai/p/5337558.html" target="_blank" rel="external">『APP中的文字和APP名字的国际化多语言处理』</a>！</li>
+<li>5.2.09、重新封装全新AFN的网络类，基于<a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">『AFNetworking 3.1』</a>！最新版本的封装，集成了get/post 方法请求数据，单图/多图上传，视频上传/下载，网络监测 等多种网络请求方式，详情请看：<a href="https://github.com/boai/BANetManager" target="_blank" rel="external">『BANetManager』</a>！</li>
+</ul>
+<h5 id="2016-06-03-版本：2-0"><a href="#2016-06-03-版本：2-0" class="headerlink" title="2016-06-03  版本：2.0"></a>2016-06-03  版本：2.0</h5><ul>
+<li>5.2.08、新增DemoVC11，collectionView的浮动布局，自适应宽高的item，</li>
+</ul>
+<h5 id="2016-05-31-版本：2-0"><a href="#2016-05-31-版本：2-0" class="headerlink" title="2016-05-31  版本：2.0"></a>2016-05-31  版本：2.0</h5><ul>
+<li>5.2.07、新增内存泄露检测，使用检测工具<a href="http://wereadteam.github.io/2016/02/22/MLeaksFinder/" target="_blank" rel="external">『MLeaksFinder』</a>！</li>
+</ul>
+<h5 id="2016-05-30-版本：2-0"><a href="#2016-05-30-版本：2-0" class="headerlink" title="2016-05-30  版本：2.0"></a>2016-05-30  版本：2.0</h5><ul>
+<li>5.2.06、新增DemoVC10，collectionView的简单使用，用View写的写了一个简单的collectionView，可随意添加到任何地方，新增编辑功能，能够实现collectionView 的删除！如果喜欢，请在git上点个星吧！</li>
+<li>5.2.05、新增DemoVC9，流式布局和线性布局库的使用，用流式布局和线性布局库MyLayout，写了一个collectionView，如果喜欢，请在git上点个星吧！</li>
+</ul>
+<h5 id="2016-05-25-版本：2-0"><a href="#2016-05-25-版本：2-0" class="headerlink" title="2016-05-25  版本：2.0"></a>2016-05-25  版本：2.0</h5><ul>
+<li>5.2.04、新增DemoVC8，系统提醒和日历提醒，最近做了一个预约功能，有用到系统提醒和日历提醒，就写了这个demo！详情请看：<a href="https://github.com/boai/BAReminderDemo" target="_blank" rel="external">『BAReminderDemo』</a>！</li>
+<li>5.2.03、新增DemoVC7，webView和WKWebView完美封装，简单的内置浏览器，有简单的功能，后期有新功能会加上！如果喜欢，请在git上点个星吧！</li>
+</ul>
+<h5 id="2016-05-10-版本：2-0"><a href="#2016-05-10-版本：2-0" class="headerlink" title="2016-05-10  版本：2.0"></a>2016-05-10  版本：2.0</h5><ul>
+<li>5.2.02、新增DemoVC6，本地通知最新完美封装，最近整理了下本地通知和极光推送，有很多坑都踩过了，刚刚整理出来的完美封装，肯定适合大部分场合，也可以用此封装写闹钟，也提醒事件，都可以！如果喜欢，请在git上点个星吧！详情请看：<a href="https://github.com/boai/BALocalNotification" target="_blank" rel="external">『BALocalNotification』</a>！</li>
+<li>5.2.01、新增网易新闻的滑动SegmentControl，基于<a href="https://github.com/HeshamMegid/HMSegmentedControl" target="_blank" rel="external">『HMSegmentedControl』</a>的完美二次封装<a href="https://github.com/boai/BASegmentControl" target="_blank" rel="external">『BASegmentControl』</a>，可随时取用！</li>
+</ul>
+<h5 id="2016-05-10-版本：1-0"><a href="#2016-05-10-版本：1-0" class="headerlink" title="2016-05-10  版本：1.0"></a>2016-05-10  版本：1.0</h5><ul>
+<li>5.1.17、新增最贴心的正则表达式封装：车型和车牌号验证、昵称、姓名验证、使用常用的两种正则判断方法！</li>
+<li>5.1.16、优化DemoVC5，新增一段文字关键字筛选高亮显示！ <br></li>
+</ul>
+<h5 id="2016-05-09-版本：1-0"><a href="#2016-05-09-版本：1-0" class="headerlink" title="2016-05-09  版本：1.0"></a>2016-05-09  版本：1.0</h5><ul>
+<li>5.1.15、新增DemoVC5：最贴心的正则表达式封装！</li>
+<li>5.1.14、优化部分代码和代码结构！ <br></li>
+</ul>
+<h5 id="2016-05-07-版本：1-0"><a href="#2016-05-07-版本：1-0" class="headerlink" title="2016-05-07  版本：1.0"></a>2016-05-07  版本：1.0</h5><ul>
+<li>5.1.13、解决tableview的分割线短一截【详见HomeVC】</li>
+<li>5.1.12、新增全局键盘弹起收回处理</li>
+<li>5.1.11、新增DemoVC4：友盟分享和登陆的完美封装！</li>
+<li>5.1.10、新增BABaseProjectNoti.h文件，本文档的各种规范都在此说明！ <br></li>
+</ul>
+<h5 id="2016-05-06-版本：1-0"><a href="#2016-05-06-版本：1-0" class="headerlink" title="2016-05-06  版本：1.0"></a>2016-05-06  版本：1.0</h5><ul>
+<li>5.1.09、新增DemoVC3：点击button倒计时，两种比较常用的获取倒计时验证码的样式！</li>
+<li>5.1.08、新增封装：BAAutoSizeWithWH，功能：实现文字的宽高自适应！</li>
+<li>5.1.07、添加网络判断</li>
+<li>5.1.06、优化所有注释：格式统一为 /<em>! 计算frame </em>/ <br></li>
+</ul>
+<h5 id="2016-05-05-版本：1-0"><a href="#2016-05-05-版本：1-0" class="headerlink" title="2016-05-05  版本：1.0"></a>2016-05-05  版本：1.0</h5><ul>
+<li>5.1.05、完善AFN网络框架封装，实现清理缓存，自定义请求头功能！</li>
+<li>5.1.04、添加两种tabbarVC，可以自由选择，一种是完全自定义tabbarVC，一种是DVTabBarController <br></li>
+</ul>
+<h5 id="2016-05-04-版本：1-0"><a href="#2016-05-04-版本：1-0" class="headerlink" title="2016-05-04  版本：1.0"></a>2016-05-04  版本：1.0</h5><ul>
+<li>5.1.03、添加雪花加载动画 </li>
+<li>5.1.02、整理优化各级目录 </li>
+<li>5.1.01、创建框架 </li>
+</ul>
+<h2 id="6、系统要求"><a href="#6、系统要求" class="headerlink" title="6、系统要求"></a>6、系统要求</h2><p>该项目最低支持 iOS 7.0 和 Xcode 7.0。（部分动画效果仅支持iOS 8.0）使用时请仔细查看！</p>
+<h2 id="7、感谢"><a href="#7、感谢" class="headerlink" title="7、感谢"></a>7、感谢</h2><p>项目中集成了很多网络上民间大神的多年积累的优秀成果，结合自己项目开发中遇到的重难点，和很多开发者向我提起的疑难问题，在下综合整理并优化了下，最终成就了<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a> <br><br>在此，博爱再次感谢各位大神的源码贡献！ <br><br>希望开源项目<a href="https://github.com/boai/BABaseProject" target="_blank" rel="external">『BABaseProject』</a>能够为众多iOS开发新手提供最简单、最快捷的开源项目！ <br><br>感谢大家的支持！</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 博爱</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/weiXinPay.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/aliPay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-BABaseProject" 
+      data-title="iOS开发项目框架 --&gt; BABaseProject" data-url="http://yoursite.com/2016/07/10/BABaseProject/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"boai1616"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
